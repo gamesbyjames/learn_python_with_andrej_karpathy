@@ -13078,19 +13078,19 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="top"></a></p>
-<h1 id="Python-Concepts-from-Neural-Networks:-Zero-to-Hero">Python Concepts from <em>Neural Networks: Zero to Hero</em><a class="anchor-link" href="#Python-Concepts-from-Neural-Networks:-Zero-to-Hero">&#182;</a></h1><p>This guide highlights important Python programming constructs used in Andrej Karpathy’s <strong>Neural Networks: Zero to Hero</strong> lecture notebooks. For each topic, we provide a brief explanation, an example (adapted from the course code), and a short quiz to reinforce your understanding and recall.</p>
+<h1 id="Python-Concepts-from-Neural-Networks:-Zero-to-Hero">Python Concepts from <em>Neural Networks: Zero to Hero</em><a class="anchor-link" href="#Python-Concepts-from-Neural-Networks:-Zero-to-Hero">&#182;</a></h1><p>This notebook covers essential <strong>Python features</strong> used in Andrej Karpathy’s <em>Zero to Hero</em> notebooks, with short explanations, <strong>multiple-choice quizzes</strong> (line-separated), and a final bigram-counting example using <code>names.txt</code>.</p>
 <h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h2><ol>
 <li><a href="#list-comprehensions">List Comprehensions</a></li>
 <li><a href="#dict-comprehensions">Dictionary Comprehensions</a></li>
 <li><a href="#combined-example">Combined Example (List + Dict)</a></li>
 <li><a href="#generators">Generators</a></li>
 <li><a href="#lambdas">Lambda Functions</a></li>
-<li><a href="#enumerate">The <code>enumerate</code> Function</a></li>
+<li><a href="#enumerate">Enumerate and <code>items()</code></a></li>
 <li><a href="#zip">The <code>zip</code> Function</a></li>
 <li><a href="#custom-classes">Custom Classes &amp; <code>__init__</code></a></li>
 <li><a href="#inheritance">Inheritance &amp; Overriding Methods</a></li>
 <li><a href="#special-methods">Special Methods &amp; Operator Overloading</a></li>
-<li><a href="#final-bigrams">Final Example: Counting Bigrams in a Text File</a></li>
+<li><a href="#final-bigrams">Putting It All Together: Counting Bigrams from <code>names.txt</code></a></li>
 <li><a href="#answers">Answers</a></li>
 </ol>
 
@@ -13100,10 +13100,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.-List-Comprehensions"><a id="list-comprehensions" />1. List Comprehensions<a class="anchor-link" href="#1.-List-Comprehensions">&#182;</a></h2><p>A <strong>list comprehension</strong> is a concise way to build a new list by iterating over an iterable and optionally filtering. The syntax is:</p>
-<div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">expression</span><span class="o">&gt;</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">item</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">iterable</span><span class="o">&gt;</span> <span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span><span class="p">]</span>
+<h2 id="1.-List-Comprehensions"><a id="list-comprehensions" />1. List Comprehensions<a class="anchor-link" href="#1.-List-Comprehensions">&#182;</a></h2><p>A <strong>list comprehension</strong> is a concise way to build a list from an iterable (like a list or range). The syntax:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span> <span class="o">&lt;</span><span class="n">expression</span><span class="o">&gt;</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">item</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">iterable</span><span class="o">&gt;</span> <span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span> <span class="p">]</span>
 </pre></div>
-<p>It can replace multi-line loops in many cases.</p>
+<p>This can save lines of code versus a loop.</p>
 
 </div>
 </div>
@@ -13118,7 +13118,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;andrej&quot;</span><span class="p">,</span> <span class="s2">&quot;karpathy&quot;</span><span class="p">,</span> <span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="s2">&quot;hero&quot;</span><span class="p">]</span>
@@ -13132,41 +13132,24 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Unique chars: [&#39;a&#39;, &#39;d&#39;, &#39;e&#39;, &#39;h&#39;, &#39;j&#39;, &#39;k&#39;, &#39;n&#39;, &#39;o&#39;, &#39;p&#39;, &#39;r&#39;, &#39;t&#39;, &#39;y&#39;, &#39;z&#39;]
-Char-to-index mapping: {&#39;a&#39;: 0, &#39;d&#39;: 1, &#39;e&#39;: 2, &#39;h&#39;: 3, &#39;j&#39;: 4, &#39;k&#39;: 5, &#39;n&#39;: 6, &#39;o&#39;: 7, &#39;p&#39;: 8, &#39;r&#39;: 9, &#39;t&#39;: 10, &#39;y&#39;: 11, &#39;z&#39;: 12}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Quiz-(Answers)">Quiz (<a href="#answers-list-comprehensions">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1. Understanding Syntax</strong></p>
-<div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
-<span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="n">n</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span>
-</pre></div>
-<p>Which list is produced?</p>
-<p><strong>A.</strong> <code>[1,4,9,16,25]</code> (all squares)
-<strong>B.</strong> <code>[1,9,25]</code> (only odd squares)
-<strong>C.</strong> <code>[n*n for n in numbers if n%2==1]</code>
-<strong>D.</strong> <code>[1,9,25,49,81]</code> (numbers 1..9)</p>
-<p><strong>2. Fill in the Blank:</strong> <code>[x**2 for x in range(4)]</code> =&gt; <code>________</code>.</p>
-<p><strong>3.</strong> If <code>words=["Neural","Networks","Zero","Hero"]</code>, write a list comprehension to get <strong>first letters</strong>.</p>
+
+<pre><code>numbers = [1,2,3,4,5]
+squares = [n*n for n in numbers if n%2==1]
+print(squares)</code></pre>
+<ul>
+<li>A. <code>[1,4,9,16,25]</code> (all squares)</li>
+<li>B. <code>[1,9,25]</code> (only odd squares)</li>
+<li>C. <code>[n*n for n in numbers if n%2==1]</code></li>
+<li>D. <code>[1,9,25,49,81]</code> (numbers 1..9)</li>
+</ul>
+<p><strong>2. Fill in the Blank</strong>
+ <code>[x**2 for x in range(4)]</code> =&gt; <code>________</code></p>
+<p><strong>3.</strong> Suppose <code>words = ["Neural","Networks","Zero","Hero"]</code>. Write a list comprehension to get <strong>first letters</strong>.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13175,10 +13158,9 @@ Char-to-index mapping: {&#39;a&#39;: 0, &#39;d&#39;: 1, &#39;e&#39;: 2, &#39;h&#
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Dictionary-Comprehensions"><a id="dict-comprehensions" />2. Dictionary Comprehensions<a class="anchor-link" href="#2.-Dictionary-Comprehensions">&#182;</a></h2><p>A <strong>dictionary comprehension</strong> looks like:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="o">&lt;</span><span class="n">key_expr</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">value_expr</span><span class="o">&gt;</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">item</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">iterable</span><span class="o">&gt;</span> <span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span><span class="p">}</span>
+<h2 id="2.-Dictionary-Comprehensions"><a id="dict-comprehensions" />2. Dictionary Comprehensions<a class="anchor-link" href="#2.-Dictionary-Comprehensions">&#182;</a></h2><p>A <strong>dictionary comprehension</strong> uses a similar syntax but creates <strong>key-value</strong> pairs:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span> <span class="o">&lt;</span><span class="n">key_expr</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">value_expr</span><span class="o">&gt;</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">item</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">iterable</span><span class="o">&gt;</span> <span class="k">if</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span> <span class="p">}</span>
 </pre></div>
-<p>It parallels list comprehensions but creates key-value pairs.</p>
 
 </div>
 </div>
@@ -13193,7 +13175,7 @@ Char-to-index mapping: {&#39;a&#39;: 0, &#39;d&#39;: 1, &#39;e&#39;: 2, &#39;h&#
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
@@ -13205,35 +13187,19 @@ Char-to-index mapping: {&#39;a&#39;: 0, &#39;d&#39;: 1, &#39;e&#39;: 2, &#39;h&#
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[90]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;a&#39;: &#39;A&#39;, &#39;b&#39;: &#39;B&#39;, &#39;c&#39;: &#39;C&#39;, &#39;d&#39;: &#39;D&#39;}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-dict-comprehensions">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1. Syntax</strong><br>
-What characters do we use for a <strong>dictionary</strong> comprehension (instead of brackets)?</p>
-<p><strong>2. Filtering</strong><br>
-How do we create a dict comprehension that only includes pairs if the key is a single letter?</p>
-<p><strong>3.</strong> Suppose we have <code>(char-&gt;count)</code>. Write a dict comprehension to keep only <code>(char-&gt;count)</code> if <code>count&gt;2</code>.</p>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-dict-comprehensions">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1. Syntax</strong></p>
+<ul>
+<li>Which braces/symbols do we use for a <strong>dictionary</strong> comprehension?</li>
+</ul>
+<p><strong>2. Filtering</strong></p>
+<ul>
+<li>How do we create a dict comprehension that only includes entries if some condition is met?</li>
+</ul>
+<p><strong>3.</strong> Suppose we have <code>(char-&gt;count)</code>. Write a dict comprehension that keeps only <code>(char-&gt;count)</code> if <code>count&gt;2</code>.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13242,49 +13208,29 @@ How do we create a dict comprehension that only includes pairs if the key is a s
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.-Combined-Example-(List-+-Dict)"><a id="combined-example" />3. Combined Example (List + Dict)<a class="anchor-link" href="#3.-Combined-Example-(List-+-Dict)">&#182;</a></h2><p>We can chain list comprehensions <strong>and</strong> dictionary comprehensions.</p>
-<p><strong>Example</strong>:</p>
+<h2 id="3.-Combined-Example-(List-+-Dict)"><a id="combined-example" />3. Combined Example (List + Dict)<a class="anchor-link" href="#3.-Combined-Example-(List-+-Dict)">&#182;</a></h2><p>We can use <strong>both</strong> a list comprehension and a dict comprehension in the same snippet.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[91]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span><span class="s2">&quot;banana&quot;</span><span class="p">,</span><span class="s2">&quot;pear&quot;</span><span class="p">,</span><span class="s2">&quot;kiwi&quot;</span><span class="p">]</span>
 
-<span class="c1"># list comprehension: uppercase only fruits &gt;3 chars</span>
+<span class="c1"># 1) List comprehension: uppercase fruits that have length&gt;3</span>
 <span class="n">upper_fruits</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fruits</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">]</span>
 
-<span class="c1"># dict comprehension: fruit-&gt;length</span>
+<span class="c1"># 2) Dict comprehension: fruit-&gt;length</span>
 <span class="n">fruit_lengths</span> <span class="o">=</span> <span class="p">{</span><span class="n">uf</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">uf</span><span class="p">)</span> <span class="k">for</span> <span class="n">uf</span> <span class="ow">in</span> <span class="n">upper_fruits</span><span class="p">}</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Upper fruits:&quot;</span><span class="p">,</span> <span class="n">upper_fruits</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fruit-&gt;length:&quot;</span><span class="p">,</span> <span class="n">fruit_lengths</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;List of uppercase, filtered fruits:&quot;</span><span class="p">,</span> <span class="n">upper_fruits</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fruit-&gt;length dictionary:&quot;</span><span class="p">,</span> <span class="n">fruit_lengths</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Upper fruits: [&#39;APPLE&#39;, &#39;BANANA&#39;, &#39;PEAR&#39;, &#39;KIWI&#39;]
-Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &#39;KIWI&#39;: 4}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13300,7 +13246,7 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.-Generators"><a id="generators" />4. Generators<a class="anchor-link" href="#4.-Generators">&#182;</a></h2><p>A <strong>generator</strong> is made by using <code>yield</code> in a function, or a generator expression <code>(expr for x in something)</code>. It yields items one by one.</p>
+<h2 id="4.-Generators"><a id="generators" />4. Generators<a class="anchor-link" href="#4.-Generators">&#182;</a></h2><p>A <strong>generator</strong> yields items lazily. You create one with <code>yield</code> in a function or a generator expression <code>(expr for x in items)</code>.</p>
 
 </div>
 </div>
@@ -13315,7 +13261,7 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -13331,46 +13277,26 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>5
-4
-3
-2
-1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-generators">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> Which keyword makes a function a generator?
-<strong>2.</strong> If we do:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Start&quot;</span><span class="p">)</span>
-    <span class="k">yield</span> <span class="mi">1</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Middle&quot;</span><span class="p">)</span>
-    <span class="k">yield</span> <span class="mi">2</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;End&quot;</span><span class="p">)</span>
-<span class="n">g</span><span class="o">=</span><span class="n">gen</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
-</pre></div>
-<p>Which lines are printed?</p>
-<p><strong>3.</strong> Write <code>evens_up_to(n)</code>.</p>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-generators">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> Which keyword makes a function into a generator?</p>
+<p><strong>2.</strong> If we do:</p>
+
+<pre><code>def gen():
+    print("Start")
+    yield 1
+    print("Middle")
+    yield 2
+    print("End")
+g=gen()
+print(next(g))
+print(next(g))</code></pre>
+<ul>
+<li>Which lines get printed?</li>
+</ul>
+<p><strong>3.</strong> Write a generator <code>evens_up_to(n)</code> that yields even numbers from 0..n.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13379,7 +13305,7 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="5.-Lambda-Functions"><a id="lambdas" />5. Lambda Functions<a class="anchor-link" href="#5.-Lambda-Functions">&#182;</a></h2><p>A <strong>lambda function</strong> is a short, anonymous function: <code>lambda args: expression</code>. Often used to specify a <strong>key</strong> in sorting or filtering.</p>
+<h2 id="5.-Lambda-Functions"><a id="lambdas" />5. Lambda Functions<a class="anchor-link" href="#5.-Lambda-Functions">&#182;</a></h2><p>A <strong>lambda</strong> is a short, anonymous function: <code>lambda args: expr</code>. Often used for sorting keys or short callbacks.</p>
 
 </div>
 </div>
@@ -13387,14 +13313,14 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Example</strong> – sorting with a lambda key</p>
+<p><strong>Example</strong> – sorting with a lambda</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span>
@@ -13406,36 +13332,16 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[93]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(&#39;B&#39;, 1), (&#39;C&#39;, 2), (&#39;A&#39;, 3)]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-lambdas">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> <code>sorted(names, key=lambda s: len(s))</code> – what does the lambda do?
-<strong>2.</strong> A lambda is anonymous because it has no <strong>__</strong>.
-<strong>3.</strong> If <code>data=[('A',3),('B',1),('C',2)]</code>, fill in:</p>
-<div class="highlight"><pre><span></span><span class="n">data_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span>
-<span class="c1"># =&gt; [(&#39;B&#39;,1),(&#39;C&#39;,2),(&#39;A&#39;,3)]</span>
-</pre></div>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-lambdas">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> <code>sorted(names, key=lambda s: len(s))</code> – what does the lambda do?</p>
+<p><strong>2.</strong> A lambda is anonymous because it has no <strong>__</strong>.</p>
+<p><strong>3.</strong> If <code>data=[('A',3),('B',1),('C',2)]</code>, fill in:</p>
+
+<pre><code>data_sorted = sorted(data, key=__________)
+# =&gt; [('B',1),('C',2),('A',3)]</code></pre>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13444,43 +13350,45 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6.-The-enumerate-Function"><a id="enumerate" />6. The <code>enumerate</code> Function<a class="anchor-link" href="#6.-The-enumerate-Function">&#182;</a></h2><p><code>enumerate()</code> yields <code>(index, elem)</code> pairs, removing the need for a manual counter.</p>
+<h2 id="6.-Enumerate-and-items()"><a id="enumerate" />6. Enumerate and <code>items()</code><a class="anchor-link" href="#6.-Enumerate-and-items()">&#182;</a></h2><h3 id="enumerate()"><code>enumerate()</code><a class="anchor-link" href="#enumerate()">&#182;</a></h3><p>Lets you loop over a sequence while automatically giving an <strong>index</strong>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Spring&quot;</span><span class="p">,</span><span class="s2">&quot;Summer&quot;</span><span class="p">,</span><span class="s2">&quot;Fall&quot;</span><span class="p">,</span><span class="s2">&quot;Winter&quot;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">season</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">seasons</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">season</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="s2">&quot;green&quot;</span><span class="p">,</span><span class="s2">&quot;blue&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="dict.items()"><code>dict.items()</code><a class="anchor-link" href="#dict.items()">&#182;</a></h3><p>For <strong>dictionaries</strong>, <code>.items()</code> yields <code>(key,value)</code> pairs.</p>
 
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1 Spring
-2 Summer
-3 Fall
-4 Winter
-</pre>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">example_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
 
+    </div>
 </div>
 </div>
 
@@ -13488,15 +13396,13 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-enumerate">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> If <code>start</code> isn’t given, do we start at 0 or 1?
-<strong>2.</strong> <code>pairs = list(enumerate(["x","y","z"]))</code> =&gt; which result?
-<strong>3.</strong> Rewrite:</p>
-<div class="highlight"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="mi">0</span>
-<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">my_list</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">elem</span><span class="p">)</span>
-    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-</pre></div>
-<p>using <code>enumerate</code>.</p>
+<p><strong>Quiz (<a href="#answers-enumerate">Answers</a>)</strong></p>
+<p><strong>1.</strong> If we don’t specify <code>start</code>, does <code>enumerate</code> begin at 0 or 1?</p>
+<p><strong>2.</strong> Suppose we have <code>letters = {'x':10, 'y':20}</code>. How do we loop over <code>(key,value)</code> pairs with <code>.items()</code>?</p>
+<p><strong>3.</strong> Show how to combine <code>enumerate()</code> <strong>and</strong> <code>.items()</code> if you need both a counter and <code>(k,v)</code> pairs. For example:</p>
+
+<pre><code>for i, (k,v) in enumerate(example_dict.items()):
+    # do stuff</code></pre>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13505,14 +13411,14 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7.-The-zip-Function"><a id="zip" />7. The <code>zip</code> Function<a class="anchor-link" href="#7.-The-zip-Function">&#182;</a></h2><p><code>zip()</code> iterates multiple lists in parallel, stopping at the shortest, yielding tuples of corresponding elements.</p>
+<h2 id="7.-The-zip-Function"><a id="zip" />7. The <code>zip</code> Function<a class="anchor-link" href="#7.-The-zip-Function">&#182;</a></h2><p><code>zip()</code> iterates multiple sequences in parallel, stopping at the shortest. Each iteration yields a tuple with elements from each sequence.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="s2">&quot;emma&quot;</span><span class="p">,</span><span class="s2">&quot;mma&quot;</span><span class="p">):</span>
@@ -13523,33 +13429,13 @@ Fruit-&gt;length: {&#39;APPLE&#39;: 5, &#39;BANANA&#39;: 6, &#39;PEAR&#39;: 4, &
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>e m
-m m
-m a
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-zip">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> <code>list(zip([1,2,3], ['a','b','c']))</code> =&gt; which list?
-<strong>2.</strong> If lengths are 5 &amp; 3, how many tuples?
-<strong>3.</strong> Show how to parallel-iterate <code>names=['Alice','Bob','Charlie']</code> and <code>ages=[25,30,22]</code>.</p>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-zip">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> <code>list(zip([1,2,3], ['a','b','c']))</code> =&gt; which list?</p>
+<p><strong>2.</strong> If lengths are 5 &amp; 3, how many tuples are produced?</p>
+<p><strong>3.</strong> Show how to parallel-iterate <code>names=['Alice','Bob','Charlie']</code> and <code>ages=[25,30,22]</code>.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13558,14 +13444,14 @@ m a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8.-Custom-Classes-&amp;-__init__"><a id="custom-classes" />8. Custom Classes &amp; <code>__init__</code><a class="anchor-link" href="#8.-Custom-Classes-&amp;-__init__">&#182;</a></h2><p>When you create a new instance, Python calls <code>__init__</code>. You can define attributes or do any other setup. Example from micrograd’s <code>Value</code> (simplified).</p>
+<h2 id="8.-Custom-Classes-&amp;-__init__"><a id="custom-classes" />8. Custom Classes &amp; <code>__init__</code><a class="anchor-link" href="#8.-Custom-Classes-&amp;-__init__">&#182;</a></h2><p>When you instantiate a class, Python calls <code>__init__</code>. You can define attributes or do setup. Example from Karpathy’s micrograd <code>Value</code> (simplified).</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Value</span><span class="p">:</span>
@@ -13583,33 +13469,13 @@ m a
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[96]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(5.0, 0.0, &#39;&#39;)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-custom-classes">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> <code>self</code> param is…?
-<strong>2.</strong> If <code>__init__</code> is missing, does Python fail or use a default?
-<strong>3.</strong> Write <code>Counter</code> with <code>count=0</code> + <code>increment()</code>.</p>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-custom-classes">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> <code>self</code> refers to what?</p>
+<p><strong>2.</strong> If <code>__init__</code> is missing, does Python raise an error or use a default?</p>
+<p><strong>3.</strong> Write a <code>Counter</code> class with <code>count=0</code> + <code>increment()</code> method.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13618,14 +13484,14 @@ m a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.-Inheritance-&amp;-Overriding-Methods"><a id="inheritance" />9. Inheritance &amp; Overriding Methods<a class="anchor-link" href="#9.-Inheritance-&amp;-Overriding-Methods">&#182;</a></h2><p>A subclass can inherit from a base class and override some methods.</p>
+<h2 id="9.-Inheritance-&amp;-Overriding-Methods"><a id="inheritance" />9. Inheritance &amp; Overriding Methods<a class="anchor-link" href="#9.-Inheritance-&amp;-Overriding-Methods">&#182;</a></h2><p>A subclass can inherit from a base class and override some methods as needed.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Animal</span><span class="p">:</span>
@@ -13644,31 +13510,13 @@ m a
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Woof!
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-inheritance">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> If <code>B</code> inherits from <code>A</code> but both define <code>greet()</code>, which runs for <code>B</code>?
-<strong>2.</strong> How do you call the parent’s version from <code>B</code>?
-<strong>3.</strong> If <code>Layer.activate(x)=x</code>, a subclass wants <code>max(x,0)</code>. Do we call base?</p>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-inheritance">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> If <code>B</code> inherits from <code>A</code> but both define <code>greet()</code>, which version runs for <code>B</code>?</p>
+<p><strong>2.</strong> How do we call the parent’s method from the subclass?</p>
+<p><strong>3.</strong> If <code>Layer.activate(x)=x</code> in the base, but a subclass wants <code>max(x,0)</code>, do we call base?</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13677,7 +13525,7 @@ m a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.-Special-Methods-&amp;-Operator-Overloading"><a id="special-methods" />10. Special Methods &amp; Operator Overloading<a class="anchor-link" href="#10.-Special-Methods-&amp;-Operator-Overloading">&#182;</a></h2><p>Python’s <strong>dunder</strong> methods (<code>__init__</code>, <code>__repr__</code>, <code>__add__</code>, etc.) let you customize built-in behaviors (like printing or <code>+</code>).</p>
+<h2 id="10.-Special-Methods-&amp;-Operator-Overloading"><a id="special-methods" />10. Special Methods &amp; Operator Overloading<a class="anchor-link" href="#10.-Special-Methods-&amp;-Operator-Overloading">&#182;</a></h2><p>Python’s <strong>dunder</strong> methods (like <code>__init__</code>, <code>__repr__</code>, <code>__add__</code>) allow you to redefine built-in behaviors (like printing or using <code>+</code>).</p>
 
 </div>
 </div>
@@ -13692,7 +13540,7 @@ m a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Value</span><span class="p">:</span>
@@ -13715,33 +13563,13 @@ m a
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[98]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Value(data=5)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-special-methods">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> If a class lacks <code>__repr__</code>, printing it yields what?
-<strong>2.</strong> If <code>Vector</code> defines <code>__add__</code>, how does <code>v1+v2+v3</code> proceed?
-<strong>3.</strong> For <code>obj1 * obj2</code>, define <code>______</code>.</p>
+<h3 id="Quiz-(Answers)">Quiz (<a href="#answers-special-methods">Answers</a>)<a class="anchor-link" href="#Quiz-(Answers)">&#182;</a></h3><p><strong>1.</strong> If a class has no <code>__repr__</code>, printing the instance yields?</p>
+<p><strong>2.</strong> If <code>Vector</code> defines <code>__add__</code>, how does <code>v1 + v2 + v3</code> proceed?</p>
+<p><strong>3.</strong> For <code>obj1 * obj2</code>, define <code>______</code>.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -13750,41 +13578,42 @@ m a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="11.-Final-Example:-Counting-Bigrams-in-a-Text-File"><a id="final-bigrams" />11. Final Example: Counting Bigrams in a Text File<a class="anchor-link" href="#11.-Final-Example:-Counting-Bigrams-in-a-Text-File">&#182;</a></h1><p>Below, we <strong>read names</strong> from <code>names.txt</code>, count bigrams, and sort them in descending order. We'll show <strong>new concepts</strong> like <code>dict.get()</code>, <code>sorted(...)</code> with a <code>lambda</code> key, etc.</p>
-
+<h1 id="11.-Putting-It-All-Together:-Counting-Bigrams-from-names.txt"><a id="final-bigrams" />11. Putting It All Together: Counting Bigrams from <code>names.txt</code><a class="anchor-link" href="#11.-Putting-It-All-Together:-Counting-Bigrams-from-names.txt">&#182;</a></h1><p>Below, we’ll <strong>read</strong> names from a file (<code>names.txt</code>) and count bigrams in two ways:</p>
+<ol>
+<li><strong>Dictionary</strong> approach – <code>(ch1,ch2)-&gt;count</code>.</li>
+<li><strong>2D array</strong> approach – using a plain numeric array (like <code>numpy</code>) to track transitions.</li>
+</ol>
+<h3 id="Dictionary-Approach">Dictionary Approach<a class="anchor-link" href="#Dictionary-Approach">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell is fully executable if you have &#39;names.txt&#39; available.</span>
-<span class="c1"># Otherwise, you&#39;ll get FileNotFoundError.</span>
-
-<span class="c1"># 1) Read all names from &#39;names.txt&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This cell is executable if you have &#39;names.txt&#39; in the same folder.</span>
+<span class="c1"># 1) Read from &#39;names.txt&#39;</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;names.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">words</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
 
-<span class="c1"># 2) Inspect some of the data</span>
+<span class="c1"># 2) Inspect</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First 10 names:&quot;</span><span class="p">,</span> <span class="n">words</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of names:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total names:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min name length:&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max name length:&quot;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">))</span>
 
-<span class="c1"># 3) Build a dictionary of (ch1,ch2)-&gt;count</span>
+<span class="c1"># 3) Build dictionary (ch1,ch2) -&gt; count</span>
 <span class="n">b</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
     <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&lt;S&gt;&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&lt;E&gt;&#39;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
         <span class="n">bigram</span> <span class="o">=</span> <span class="p">(</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">)</span>
-        <span class="c1"># dict.get(key, default) returns b[key] if present, else &#39;default&#39;.</span>
         <span class="n">b</span><span class="p">[</span><span class="n">bigram</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bigram</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="c1"># 4) Sort bigrams by frequency (descending)</span>
+<span class="c1"># 4) Sort descending</span>
 <span class="n">sorted_bigrams</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="o">-</span><span class="n">kv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 10 bigrams:&quot;</span><span class="p">,</span> <span class="n">sorted_bigrams</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 10 bigrams (dictionary approach):&quot;</span><span class="p">,</span> <span class="n">sorted_bigrams</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -13802,10 +13631,10 @@ m a
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>First 10 names: [&#39;emma&#39;, &#39;olivia&#39;, &#39;ava&#39;, &#39;isabella&#39;, &#39;sophia&#39;, &#39;charlotte&#39;, &#39;mia&#39;, &#39;amelia&#39;, &#39;harper&#39;, &#39;evelyn&#39;]
-Total number of names: 32033
+Total names: 32033
 Min name length: 2
 Max name length: 15
-Top 10 bigrams: [((&#39;n&#39;, &#39;&lt;E&gt;&#39;), 6763), ((&#39;a&#39;, &#39;&lt;E&gt;&#39;), 6640), ((&#39;a&#39;, &#39;n&#39;), 5438), ((&#39;&lt;S&gt;&#39;, &#39;a&#39;), 4410), ((&#39;e&#39;, &#39;&lt;E&gt;&#39;), 3983), ((&#39;a&#39;, &#39;r&#39;), 3264), ((&#39;e&#39;, &#39;l&#39;), 3248), ((&#39;r&#39;, &#39;i&#39;), 3033), ((&#39;n&#39;, &#39;a&#39;), 2977), ((&#39;&lt;S&gt;&#39;, &#39;k&#39;), 2963)]
+Top 10 bigrams (dictionary approach): [((&#39;n&#39;, &#39;&lt;E&gt;&#39;), 6763), ((&#39;a&#39;, &#39;&lt;E&gt;&#39;), 6640), ((&#39;a&#39;, &#39;n&#39;), 5438), ((&#39;&lt;S&gt;&#39;, &#39;a&#39;), 4410), ((&#39;e&#39;, &#39;&lt;E&gt;&#39;), 3983), ((&#39;a&#39;, &#39;r&#39;), 3264), ((&#39;e&#39;, &#39;l&#39;), 3248), ((&#39;r&#39;, &#39;i&#39;), 3033), ((&#39;n&#39;, &#39;a&#39;), 2977), ((&#39;&lt;S&gt;&#39;, &#39;k&#39;), 2963)]
 </pre>
 </div>
 </div>
@@ -13817,14 +13646,157 @@ Top 10 bigrams: [((&#39;n&#39;, &#39;&lt;E&gt;&#39;), 6763), ((&#39;a&#39;, &#39
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2D-Array-Approach">2D Array Approach<a class="anchor-link" href="#2D-Array-Approach">&#182;</a></h3><p>Here we store bigram counts in a 2D array using numpy.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># We&#39;ll define &#39;.&#39; as our start/end token.</span>
+<span class="n">chars</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">))))</span>
+<span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">chars</span>
+
+<span class="n">stoi</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chars</span><span class="p">)}</span>
+<span class="n">itos</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="n">stoi</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">chars</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+    <span class="n">chs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span> <span class="n">chs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">ix1</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch1</span><span class="p">]</span>
+        <span class="n">ix2</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">[</span><span class="n">ch2</span><span class="p">]</span>
+        <span class="n">N</span><span class="p">[</span><span class="n">ix1</span><span class="p">,</span> <span class="n">ix2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">N</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[100]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[   0, 4410, 1306, 1542, 1690, 1531,  417,  669,  874,  591, 2422,
+        2963, 1572, 2538, 1146,  394,  515,   92, 1639, 2055, 1308,   78,
+         376,  307,  134,  535,  929],
+       [6640,  556,  541,  470, 1042,  692,  134,  168, 2332, 1650,  175,
+         568, 2528, 1634, 5438,   63,   82,   60, 3264, 1118,  687,  381,
+         834,  161,  182, 2050,  435],
+       [ 114,  321,   38,    1,   65,  655,    0,    0,   41,  217,    1,
+           0,  103,    0,    4,  105,    0,    0,  842,    8,    2,   45,
+           0,    0,    0,   83,    0],
+       [  97,  815,    0,   42,    1,  551,    0,    2,  664,  271,    3,
+         316,  116,    0,    0,  380,    1,   11,   76,    5,   35,   35,
+           0,    0,    3,  104,    4],
+       [ 516, 1303,    1,    3,  149, 1283,    5,   25,  118,  674,    9,
+           3,   60,   30,   31,  378,    0,    1,  424,   29,    4,   92,
+          17,   23,    0,  317,    1],
+       [3983,  679,  121,  153,  384, 1271,   82,  125,  152,  818,   55,
+         178, 3248,  769, 2675,  269,   83,   14, 1958,  861,  580,   69,
+         463,   50,  132, 1070,  181],
+       [  80,  242,    0,    0,    0,  123,   44,    1,    1,  160,    0,
+           2,   20,    0,    4,   60,    0,    0,  114,    6,   18,   10,
+           0,    4,    0,   14,    2],
+       [ 108,  330,    3,    0,   19,  334,    1,   25,  360,  190,    3,
+           0,   32,    6,   27,   83,    0,    0,  201,   30,   31,   85,
+           1,   26,    0,   31,    1],
+       [2409, 2244,    8,    2,   24,  674,    2,    2,    1,  729,    9,
+          29,  185,  117,  138,  287,    1,    1,  204,   31,   71,  166,
+          39,   10,    0,  213,   20],
+       [2489, 2445,  110,  509,  440, 1653,  101,  428,   95,   82,   76,
+         445, 1345,  427, 2126,  588,   53,   52,  849, 1316,  541,  109,
+         269,    8,   89,  779,  277],
+       [  71, 1473,    1,    4,    4,  440,    0,    0,   45,  119,    2,
+           2,    9,    5,    2,  479,    1,    0,   11,    7,    2,  202,
+           5,    6,    0,   10,    0],
+       [ 363, 1731,    2,    2,    2,  895,    1,    0,  307,  509,    2,
+          20,  139,    9,   26,  344,    0,    0,  109,   95,   17,   50,
+           2,   34,    0,  379,    2],
+       [1314, 2623,   52,   25,  138, 2921,   22,    6,   19, 2480,    6,
+          24, 1345,   60,   14,  692,   15,    3,   18,   94,   77,  324,
+          72,   16,    0, 1588,   10],
+       [ 516, 2590,  112,   51,   24,  818,    1,    0,    5, 1256,    7,
+           1,    5,  168,   20,  452,   38,    0,   97,   35,    4,  139,
+           3,    2,    0,  287,   11],
+       [6763, 2977,    8,  213,  704, 1359,   11,  273,   26, 1725,   44,
+          58,  195,   19, 1906,  496,    5,    2,   44,  278,  443,   96,
+          55,   11,    6,  465,  145],
+       [ 855,  149,  140,  114,  190,  132,   34,   44,  171,   69,   16,
+          68,  619,  261, 2411,  115,   95,    3, 1059,  504,  118,  275,
+         176,  114,   45,  103,   54],
+       [  33,  209,    2,    1,    0,  197,    1,    0,  204,   61,    1,
+           1,   16,    1,    1,   59,   39,    0,  151,   16,   17,    4,
+           0,    0,    0,   12,    0],
+       [  28,   13,    0,    0,    0,    1,    0,    0,    0,   13,    0,
+           0,    1,    2,    0,    2,    0,    0,    1,    2,    0,  206,
+           0,    3,    0,    0,    0],
+       [1377, 2356,   41,   99,  187, 1697,    9,   76,  121, 3033,   25,
+          90,  413,  162,  140,  869,   14,   16,  425,  190,  208,  252,
+          80,   21,    3,  773,   23],
+       [1169, 1201,   21,   60,    9,  884,    2,    2, 1285,  684,    2,
+          82,  279,   90,   24,  531,   51,    1,   55,  461,  765,  185,
+          14,   24,    0,  215,   10],
+       [ 483, 1027,    1,   17,    0,  716,    2,    2,  647,  532,    3,
+           0,  134,    4,   22,  667,    0,    0,  352,   35,  374,   78,
+          15,   11,    2,  341,  105],
+       [ 155,  163,  103,  103,  136,  169,   19,   47,   58,  121,   14,
+          93,  301,  154,  275,   10,   16,   10,  414,  474,   82,    3,
+          37,   86,   34,   13,   45],
+       [  88,  642,    1,    0,    1,  568,    0,    0,    1,  911,    0,
+           3,   14,    0,    8,  153,    0,    0,   48,    0,    0,    7,
+           7,    0,    0,  121,    0],
+       [  51,  280,    1,    0,    8,  149,    2,    1,   23,  148,    0,
+           6,   13,    2,   58,   36,    0,    0,   22,   20,    8,   25,
+           0,    2,    0,   73,    1],
+       [ 164,  103,    1,    4,    5,   36,    3,    0,    1,  102,    0,
+           0,   39,    1,    1,   41,    0,    0,    0,   31,   70,    5,
+           0,    3,   38,   30,   19],
+       [2007, 2143,   27,  115,  272,  301,   12,   30,   22,  192,   23,
+          86, 1104,  148, 1826,  271,   15,    6,  291,  401,  104,  141,
+         106,    4,   28,   23,   78],
+       [ 160,  860,    4,    2,    2,  373,    0,    1,   43,  364,    2,
+           2,  123,   35,    4,  110,    2,    0,   32,    4,    4,   73,
+           2,    3,    1,  147,   45]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong><code>open('names.txt','r')</code></strong>: opens the file for reading.</li>
-<li><strong><code>.read().splitlines()</code></strong>: reads the entire file as a string, then splits by line breaks into a list (<code>words</code>).</li>
-<li><strong><code>b.get(bigram,0)</code></strong>: retrieves the dictionary value for <code>bigram</code> or <code>0</code> if not found.</li>
-<li><strong><code>sorted(..., key=lambda kv: -kv[1])</code></strong>: sorts the <code>(key,value)</code> pairs by <strong>negative</strong> <code>value</code>, i.e. descending order.</li>
+<li>We add <code>.</code> at the start and end.</li>
+<li>Each <code>(ch1-&gt;ch2)</code> transition increments <code>N[ix1,ix2]</code>.</li>
+<li><code>chars</code> is a list of all unique letters plus <code>.</code>.</li>
 </ul>
-<p>You can adapt this code for any text file or a built-in <code>words</code> list if you don’t have <code>names.txt</code>. If <code>names.txt</code> isn’t in the same folder, you’ll need to provide a correct path or you’ll see <code>FileNotFoundError</code>.</p>
+<h3 id="Final-Quiz">Final Quiz<a class="anchor-link" href="#Final-Quiz">&#182;</a></h3><p>Try to <strong>recreate</strong> the bigram code (dictionary or 2D array) <strong>from scratch</strong> using <code>names.txt</code>.</p>
+<ul>
+<li><strong>Don’t</strong> peek at the above solution.</li>
+<li>Once done, compare your version to see if the logic matches.</li>
+</ul>
+<p><a href="#top">Back to top</a></p>
 
 </div>
 </div>
@@ -13838,12 +13810,12 @@ Top 10 bigrams: [((&#39;n&#39;, &#39;&lt;E&gt;&#39;), 6763), ((&#39;a&#39;, &#39
 <li><code>[w[0] for w in words]</code></li>
 </ol>
 <h2 id="Answers:-Dictionary-Comprehensions-&#8617;"><a id="answers-dict-comprehensions" />Answers: Dictionary Comprehensions <a href="#dict-comprehensions">&#8617;</a><a class="anchor-link" href="#Answers:-Dictionary-Comprehensions-&#8617;">&#182;</a></h2><ol>
-<li>Curly braces <code>{...}</code> rather than brackets <code>[...]</code>.</li>
-<li>e.g. <code>{ch: ch.upper() for ch in chars if condition}</code>.</li>
-<li>e.g. <code>{c: n for c,n in counts.items() if n&gt;2}</code>.</li>
+<li>Curly braces <code>{...}</code> instead of brackets.</li>
+<li>e.g. <code>{k: v for k,v in something if condition}</code>.</li>
+<li>e.g. <code>{c: n for (c,n) in counts.items() if n&gt;2}</code>.</li>
 </ol>
 <h2 id="(No-direct-quiz-for-the-combined-example)">(No direct quiz for the combined example)<a class="anchor-link" href="#(No-direct-quiz-for-the-combined-example)">&#182;</a></h2><h2 id="Answers:-Generators-&#8617;"><a id="answers-generators" />Answers: Generators <a href="#generators">&#8617;</a><a class="anchor-link" href="#Answers:-Generators-&#8617;">&#182;</a></h2><ol>
-<li><code>yield</code>.</li>
+<li><code>yield</code></li>
 <li>Prints "Start" =&gt; yields 1; "Middle" =&gt; yields 2; next call prints "End".</li>
 <li>Example:<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evens_up_to</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
@@ -13852,23 +13824,26 @@ Top 10 bigrams: [((&#39;n&#39;, &#39;&lt;E&gt;&#39;), 6763), ((&#39;a&#39;, &#39
 </li>
 </ol>
 <h2 id="Answers:-Lambda-Functions-&#8617;"><a id="answers-lambdas" />Answers: Lambda Functions <a href="#lambdas">&#8617;</a><a class="anchor-link" href="#Answers:-Lambda-Functions-&#8617;">&#182;</a></h2><ol>
-<li>Returns the length of each name for sorting.</li>
+<li>It returns the length of each name for sorting.</li>
 <li>No <strong>name</strong>.</li>
 <li><code>key=lambda x: x[1]</code></li>
 </ol>
-<h2 id="Answers:-The-enumerate-Function-&#8617;"><a id="answers-enumerate" />Answers: The <code>enumerate</code> Function <a href="#enumerate">&#8617;</a><a class="anchor-link" href="#Answers:-The-enumerate-Function-&#8617;">&#182;</a></h2><ol>
-<li>Starts at 0 by default.</li>
-<li><code>[(0,'x'),(1,'y'),(2,'z')]</code></li>
-<li><code>for i,elem in enumerate(my_list): print(i,elem)</code></li>
+<h2 id="Answers:-Enumerate-and-items()-&#8617;"><a id="answers-enumerate" />Answers: Enumerate and <code>items()</code> <a href="#enumerate">&#8617;</a><a class="anchor-link" href="#Answers:-Enumerate-and-items()-&#8617;">&#182;</a></h2><ol>
+<li>It starts at 0 by default.</li>
+<li><code>for k,v in letters.items(): ...</code></li>
+<li>e.g.<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">example_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</li>
 </ol>
 <h2 id="Answers:-The-zip-Function-&#8617;"><a id="answers-zip" />Answers: The <code>zip</code> Function <a href="#zip">&#8617;</a><a class="anchor-link" href="#Answers:-The-zip-Function-&#8617;">&#182;</a></h2><ol>
 <li><code>[(1,'a'),(2,'b'),(3,'c')]</code></li>
 <li>3</li>
-<li><code>for n,a in zip(names,ages): print(f"{n} is {a}")</code></li>
+<li><code>for n,a in zip(names, ages): print(f"{n} is {a}")</code></li>
 </ol>
 <h2 id="Answers:-Custom-Classes-&#8617;"><a id="answers-custom-classes" />Answers: Custom Classes <a href="#custom-classes">&#8617;</a><a class="anchor-link" href="#Answers:-Custom-Classes-&#8617;">&#182;</a></h2><ol>
 <li><code>self</code> is the instance.</li>
-<li>Python calls a default <code>__init__</code> that does nothing.</li>
+<li>Python calls a default <code>__init__</code>.</li>
 <li><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Counter</span><span class="p">:</span>
  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
      <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
@@ -13879,31 +13854,18 @@ Top 10 bigrams: [((&#39;n&#39;, &#39;&lt;E&gt;&#39;), 6763), ((&#39;a&#39;, &#39
 </ol>
 <h2 id="Answers:-Inheritance-&amp;-Overriding-&#8617;"><a id="answers-inheritance" />Answers: Inheritance &amp; Overriding <a href="#inheritance">&#8617;</a><a class="anchor-link" href="#Answers:-Inheritance-&amp;-Overriding-&#8617;">&#182;</a></h2><ol>
 <li>Subclass method overrides.</li>
-<li><code>super().method(...)</code> or <code>ParentClass.method(self,...)</code></li>
-<li>e.g. <code>return max(x,0)</code></li>
+<li><code>super().method(...)</code> or <code>ParentClass.method(self, ...)</code></li>
+<li><code>return max(x, 0)</code></li>
 </ol>
 <h2 id="Answers:-Special-Methods-&#8617;"><a id="answers-special-methods" />Answers: Special Methods <a href="#special-methods">&#8617;</a><a class="anchor-link" href="#Answers:-Special-Methods-&#8617;">&#182;</a></h2><ol>
 <li><code>&lt;MyClass object at 0x...&gt;</code></li>
-<li>It calls <code>__add__</code> twice left-&gt;right.</li>
-<li><code>__mul__</code>.</li>
+<li>It calls <code>__add__</code> twice in left-&gt;right order.</li>
+<li><code>__mul__</code></li>
 </ol>
 <p><a href="#top">Back to top</a></p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
     </div>
   </div>
